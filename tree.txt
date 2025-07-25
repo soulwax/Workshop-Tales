@@ -1,0 +1,209 @@
+Workshop-Tales
+├───.classpath
+├───.gitignore
+├───.project
+├───build.xml
+├───LICENSE.md
+├───.github/
+│   └───assets/
+│       ├───shot1.png
+│       ├───shot2.png
+│       ├───shot3.png
+│       ├───shot4.png
+│       └───shot5.png
+├───bin/
+│   └───com/
+│       └───soulwax/
+│           └───ld2025/
+│               ├───Game.class
+│               ├───GameApplet.class
+│               ├───InputHandler$Key.class
+│               ├───InputHandler.class
+│               ├───crafting/
+│               │   ├───Crafting.class
+│               │   ├───FurnitureRecipe.class
+│               │   ├───Recipe.class
+│               │   ├───ResourceRecipe.class
+│               │   └───ToolRecipe.class
+│               ├───entity/
+│               │   ├───AirWizard.class
+│               │   ├───Anvil.class
+│               │   ├───Chest.class
+│               │   ├───Entity.class
+│               │   ├───Furnace.class
+│               │   ├───Furniture.class
+│               │   ├───Inventory.class
+│               │   ├───ItemEntity.class
+│               │   ├───Lantern.class
+│               │   ├───Mob.class
+│               │   ├───Oven.class
+│               │   ├───Player.class
+│               │   ├───Slime.class
+│               │   ├───Spark.class
+│               │   ├───Workbench.class
+│               │   ├───Zombie.class
+│               │   └───particle/
+│               │       ├───Particle.class
+│               │       ├───SmashParticle.class
+│               │       └───TextParticle.class
+│               ├───gfx/
+│               │   ├───Color.class
+│               │   ├───Font.class
+│               │   ├───Screen.class
+│               │   ├───Sprite.class
+│               │   └───SpriteSheet.class
+│               ├───item/
+│               │   ├───FurnitureItem.class
+│               │   ├───Item.class
+│               │   ├───PowerGloveItem.class
+│               │   ├───ResourceItem.class
+│               │   ├───ToolItem.class
+│               │   ├───ToolType.class
+│               │   └───resource/
+│               │       ├───FoodResource.class
+│               │       ├───PlantableResource.class
+│               │       └───Resource.class
+│               ├───level/
+│               │   ├───Level$1.class
+│               │   ├───Level.class
+│               │   ├───levelgen/
+│               │   │   └───LevelGen.class
+│               │   └───tile/
+│               │       ├───CactusTile.class
+│               │       ├───CloudCactusTile.class
+│               │       ├───CloudTile.class
+│               │       ├───DirtTile.class
+│               │       ├───FarmTile.class
+│               │       ├───FlowerTile.class
+│               │       ├───GrassTile.class
+│               │       ├───HardRockTile.class
+│               │       ├───HoleTile.class
+│               │       ├───InfiniteFallTile.class
+│               │       ├───LavaTile.class
+│               │       ├───OreTile.class
+│               │       ├───RockTile.class
+│               │       ├───SandTile.class
+│               │       ├───SaplingTile.class
+│               │       ├───StairsTile.class
+│               │       ├───StoneTile.class
+│               │       ├───Tile.class
+│               │       ├───TreeTile.class
+│               │       ├───WaterTile.class
+│               │       └───WheatTile.class
+│               ├───screen/
+│               │   ├───AboutMenu.class
+│               │   ├───ContainerMenu.class
+│               │   ├───CraftingMenu$1.class
+│               │   ├───CraftingMenu.class
+│               │   ├───DeadMenu.class
+│               │   ├───InstructionsMenu.class
+│               │   ├───InventoryMenu.class
+│               │   ├───LevelTransitionMenu.class
+│               │   ├───ListItem.class
+│               │   ├───Menu.class
+│               │   ├───TitleMenu.class
+│               │   └───WonMenu.class
+│               └───sound/
+│                   ├───Sound$1.class
+│                   └───Sound.class
+├───res/
+│   ├───bossdeath.wav
+│   ├───craft.wav
+│   ├───death.wav
+│   ├───icons.png
+│   ├───icons2.png
+│   ├───monsterhurt.wav
+│   ├───pickup.wav
+│   ├───playerhurt.wav
+│   └───test.wav
+└───src/
+    └───com/
+        └───soulwax/
+            └───ld2025/
+                ├───Game.java
+                ├───GameApplet.java
+                ├───InputHandler.java
+                ├───crafting/
+                │   ├───Crafting.java
+                │   ├───FurnitureRecipe.java
+                │   ├───Recipe.java
+                │   ├───ResourceRecipe.java
+                │   └───ToolRecipe.java
+                ├───entity/
+                │   ├───AirWizard.java
+                │   ├───Anvil.java
+                │   ├───Chest.java
+                │   ├───Entity.java
+                │   ├───Furnace.java
+                │   ├───Furniture.java
+                │   ├───Inventory.java
+                │   ├───ItemEntity.java
+                │   ├───Lantern.java
+                │   ├───Mob.java
+                │   ├───Oven.java
+                │   ├───Player.java
+                │   ├───Slime.java
+                │   ├───Spark.java
+                │   ├───Workbench.java
+                │   ├───Zombie.java
+                │   └───particle/
+                │       ├───Particle.java
+                │       ├───SmashParticle.java
+                │       └───TextParticle.java
+                ├───gfx/
+                │   ├───Color.java
+                │   ├───Font.java
+                │   ├───Screen.java
+                │   ├───Sprite.java
+                │   └───SpriteSheet.java
+                ├───item/
+                │   ├───FurnitureItem.java
+                │   ├───Item.java
+                │   ├───PowerGloveItem.java
+                │   ├───ResourceItem.java
+                │   ├───ToolItem.java
+                │   ├───ToolType.java
+                │   └───resource/
+                │       ├───FoodResource.java
+                │       ├───PlantableResource.java
+                │       └───Resource.java
+                ├───level/
+                │   ├───Level.java
+                │   ├───levelgen/
+                │   │   └───LevelGen.java
+                │   └───tile/
+                │       ├───CactusTile.java
+                │       ├───CloudCactusTile.java
+                │       ├───CloudTile.java
+                │       ├───DirtTile.java
+                │       ├───FarmTile.java
+                │       ├───FlowerTile.java
+                │       ├───GrassTile.java
+                │       ├───HardRockTile.java
+                │       ├───HoleTile.java
+                │       ├───InfiniteFallTile.java
+                │       ├───LavaTile.java
+                │       ├───OreTile.java
+                │       ├───RockTile.java
+                │       ├───SandTile.java
+                │       ├───SaplingTile.java
+                │       ├───StairsTile.java
+                │       ├───StoneTile.java
+                │       ├───Tile.java
+                │       ├───TreeTile.java
+                │       ├───WaterTile.java
+                │       └───WheatTile.java
+                ├───screen/
+                │   ├───AboutMenu.java
+                │   ├───ContainerMenu.java
+                │   ├───CraftingMenu.java
+                │   ├───DeadMenu.java
+                │   ├───InstructionsMenu.java
+                │   ├───InventoryMenu.java
+                │   ├───LevelTransitionMenu.java
+                │   ├───ListItem.java
+                │   ├───Menu.java
+                │   ├───TitleMenu.java
+                │   └───WonMenu.java
+                └───sound/
+                    └───Sound.java
