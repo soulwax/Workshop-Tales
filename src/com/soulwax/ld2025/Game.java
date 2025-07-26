@@ -28,6 +28,7 @@ import com.soulwax.ld2025.screen.LevelTransitionMenu;
 import com.soulwax.ld2025.screen.Menu;
 import com.soulwax.ld2025.screen.TitleMenu;
 import com.soulwax.ld2025.screen.WonMenu;
+import java.util.concurrent.locks.LockSupport;
 
 public class Game extends Canvas implements Runnable {
     @Serial
@@ -132,13 +133,10 @@ public class Game extends Canvas implements Runnable {
             lightScreen = new Screen(WIDTH, HEIGHT,
                     new SpriteSheet(ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons.png")))));
         } catch (IOException e) {
-            System.err.println("Fehler beim Laden der Sprite-Ressourcen: " + e.getMessage());
-            throw new RuntimeException("Kritischer Fehler beim Initialisieren der Bildschirme", e);
+            System.err.println("Error loading image resources: " + e.getMessage());
+            throw new RuntimeException("Critical error while initializing the screen.", e);
         }
     }
-
-
-    private static final int GAME_LOOP_SLEEP_MS = 2;
 
     @Override
     public void run() {
@@ -155,22 +153,25 @@ public class Game extends Canvas implements Runnable {
             long now = System.nanoTime();
             unprocessed += (now - lastTime) / nsPerTick;
             lastTime = now;
-            boolean shouldRender = true;
+
+            boolean shouldRender = false;
+
             while (unprocessed >= 1) {
                 ticks++;
                 tick();
                 unprocessed -= 1;
-            }
-
-            try {
-                Thread.sleep(GAME_LOOP_SLEEP_MS);
-            } catch (InterruptedException e) {
-                handleThreadInterruption(e);
+                shouldRender = true;
             }
 
             if (shouldRender) {
                 frames++;
                 render();
+            }
+
+            // More precise timing with LockSupport
+            long sleepNanos = (long) (nsPerTick - (System.nanoTime() - now));
+            if (sleepNanos > 100000) { // Sleep only when >0.1ms
+                LockSupport.parkNanos(sleepNanos);
             }
 
             if (System.currentTimeMillis() - lastTimer1 > 1000) {
@@ -180,15 +181,8 @@ public class Game extends Canvas implements Runnable {
                 ticks = 0;
             }
         }
+
     }
-
-
-    private void handleThreadInterruption(InterruptedException e) {
-        System.err.println("Game loop interrupted: " + e.getMessage());
-        Thread.currentThread().interrupt(); // Restore interrupted status
-        running = false; // Gracefully stop the game loop
-    }
-
 
     public void tick() {
         tickCount++;
@@ -297,15 +291,15 @@ public class Game extends Canvas implements Runnable {
     private void renderGui() {
         for (int y = 0; y < 2; y++) {
             for (int x = 0; x < 20; x++) {
-                screen.render(x * 8, screen.h - 16 + y * 8, 0 + 12 * 32, Color.get(000, 000, 000, 000), 0);
+                screen.render(x * 8, screen.h - 16 + y * 8,  12 * 32, Color.get(000, 000, 000, 000), 0);
             }
         }
 
         for (int i = 0; i < 10; i++) {
             if (i < player.health)
-                screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(000, 200, 500, 533), 0);
+                screen.render(i * 8, screen.h - 16,  12 * 32, Color.get(000, 200, 500, 533), 0);
             else
-                screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(000, 100, 000, 000), 0);
+                screen.render(i * 8, screen.h - 16,  12 * 32, Color.get(000, 100, 000, 000), 0);
 
             if (player.staminaRechargeDelay > 0) {
                 if (player.staminaRechargeDelay / 4 % 2 == 0)
@@ -328,6 +322,7 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
+    @SuppressWarnings("PointlessArithmeticExpression")
     private void renderFocusNagger() {
         String msg = "Click to focus!";
         int xx = (WIDTH - msg.length() * 8) / 2;
@@ -335,17 +330,17 @@ public class Game extends Canvas implements Runnable {
         int w = msg.length();
         int h = 1;
 
-        screen.render(xx - 8, yy - 8, 0 + 13 * 32, Color.get(-1, 1, 5, 445), 0);
-        screen.render(xx + w * 8, yy - 8, 0 + 13 * 32, Color.get(-1, 1, 5, 445), 1);
-        screen.render(xx - 8, yy + 8, 0 + 13 * 32, Color.get(-1, 1, 5, 445), 2);
-        screen.render(xx + w * 8, yy + 8, 0 + 13 * 32, Color.get(-1, 1, 5, 445), 3);
+        screen.render(xx - 8, yy - 8, 13 * 32, Color.get(-1, 1, 5, 445), 0);
+        screen.render(xx + w * 8, yy - 8, 13 * 32, Color.get(-1, 1, 5, 445), 1);
+        screen.render(xx - 8, yy + 8, 13 * 32, Color.get(-1, 1, 5, 445), 2);
+        screen.render(xx + w * 8, yy + 8, 13 * 32, Color.get(-1, 1, 5, 445), 3);
         for (int x = 0; x < w; x++) {
             screen.render(xx + x * 8, yy - 8, 1 + 13 * 32, Color.get(-1, 1, 5, 445), 0);
             screen.render(xx + x * 8, yy + 8, 1 + 13 * 32, Color.get(-1, 1, 5, 445), 2);
         }
         for (int y = 0; y < h; y++) {
-            screen.render(xx - 8, yy + y * 8, 2 + 13 * 32, Color.get(-1, 1, 5, 445), 0);
-            screen.render(xx + w * 8, yy + y * 8, 2 + 13 * 32, Color.get(-1, 1, 5, 445), 1);
+            screen.render(xx - 8, yy + (y << 3), 2 + 13 * 32, Color.get(-1, 1, 5, 445), 0);
+            screen.render(xx + w * 8, yy + (y << 3), 2 + 13 * 32, Color.get(-1, 1, 5, 445), 1);
         }
 
         if ((tickCount / 20) % 2 == 0) {
