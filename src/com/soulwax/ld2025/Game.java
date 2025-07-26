@@ -111,26 +111,32 @@ public class Game extends Canvas implements Runnable {
                     int bb = (b * 255 / 5);
                     int mid = (rr * 30 + gg * 59 + bb * 11) / 100;
 
-                    int r1 = ((rr + mid * 1) / 2) * 230 / 255 + 10;
-                    int g1 = ((gg + mid * 1) / 2) * 230 / 255 + 10;
-                    int b1 = ((bb + mid * 1) / 2) * 230 / 255 + 10;
+                    int r1 = ((rr + mid) / 2) * 230 / 255 + 10;
+                    int g1 = ((gg + mid) / 2) * 230 / 255 + 10;
+                    int b1 = ((bb + mid) / 2) * 230 / 255 + 10;
                     colors[pp++] = r1 << 16 | g1 << 8 | b1;
 
                 }
             }
         }
+
+        initializeScreens();
+        resetGame();
+        setMenu(new TitleMenu());
+    }
+
+    private void initializeScreens() {
         try {
             screen = new Screen(WIDTH, HEIGHT,
                     new SpriteSheet(ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons.png")))));
             lightScreen = new Screen(WIDTH, HEIGHT,
                     new SpriteSheet(ImageIO.read(Objects.requireNonNull(Game.class.getResourceAsStream("/icons.png")))));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Fehler beim Laden der Sprite-Ressourcen: " + e.getMessage());
+            throw new RuntimeException("Kritischer Fehler beim Initialisieren der Bildschirme", e);
         }
-
-        resetGame();
-        setMenu(new TitleMenu());
     }
+
 
     private static final int GAME_LOOP_SLEEP_MS = 2;
 
