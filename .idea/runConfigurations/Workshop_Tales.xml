@@ -1,0 +1,13 @@
+<!-- File: .idea/runConfigurations/Workshop_Tales.xml -->
+
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Workshop-Tales" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="valhalla-ea-23" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="MAIN_CLASS_NAME" value="de.soulwax.wstales.Game" />
+    <module name="Workshop Tales" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

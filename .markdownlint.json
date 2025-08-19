@@ -1,0 +1,16 @@
+{
+  "MD013": false,
+  "MD041": false,
+  "MD029": {
+    "style": "ordered"
+  },
+{
+  "MD029": true,
+  "overrides": [
+    {
+      "files": ["LICENSE.md"],
+      "MD029": false
+    }
+  ]
+}
+}
